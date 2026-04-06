@@ -24,3 +24,6 @@ fonts/*.woff2
 dashboard/*.png
 *.log
 .env
+autoresearch/output/
+autoresearch/results.tsv
+autoresearch/discovered-urls.txt
