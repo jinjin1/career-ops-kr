@@ -1,0 +1,51 @@
+# career-ops-kr 상태 정의
+# 에이전트(writer)와 대시보드(reader) 모두 이 파일을 참조합니다.
+
+states:
+  - key: evaluated
+    label: 평가완료
+    emoji: "📋"
+    description: 보고서 작성 완료, 의사결정 대기
+    next: [applied, skip, discarded]
+
+  - key: applied
+    label: 지원완료
+    emoji: "📨"
+    description: 지원서 제출 완료
+    next: [responded, interview, rejected]
+
+  - key: responded
+    label: 회신
+    emoji: "💬"
+    description: 기업에서 회신 받음
+    next: [interview, rejected]
+
+  - key: interview
+    label: 면접
+    emoji: "🎯"
+    description: 면접 진행 중
+    next: [offer, rejected]
+
+  - key: offer
+    label: 오퍼
+    emoji: "🎉"
+    description: 합격/오퍼 수령
+    next: []
+
+  - key: rejected
+    label: 불합격
+    emoji: "❌"
+    description: 기업에서 불합격 통보
+    next: []
+
+  - key: discarded
+    label: 포기
+    emoji: "🚫"
+    description: 본인이 포기 또는 공고 마감
+    next: []
+
+  - key: skip
+    label: 패스
+    emoji: "⏭️"
+    description: 적합하지 않아 지원하지 않음
+    next: []

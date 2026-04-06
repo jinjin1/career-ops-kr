@@ -1,0 +1,22 @@
+{
+  "name": "career-ops-kr",
+  "version": "0.1.0",
+  "description": "한국 PM 구직 파이프라인 - AI 기반 채용 공고 스캔, 평가, 맞춤 이력서/경력기술서 생성",
+  "type": "module",
+  "scripts": {
+    "test": "node dashboard/dashboard.test.mjs",
+    "pdf": "node generate-pdf.mjs",
+    "dashboard": "npx serve dashboard",
+    "setup": "npx playwright install chromium && npm run fonts",
+    "fonts": "mkdir -p fonts && curl -sL -o fonts/pretendard-regular.woff2 'https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/woff2/Pretendard-Regular.woff2' && curl -sL -o fonts/pretendard-semibold.woff2 'https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/woff2/Pretendard-SemiBold.woff2' && curl -sL -o fonts/pretendard-bold.woff2 'https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/woff2/Pretendard-Bold.woff2' && echo 'Pretendard fonts downloaded.'"
+  },
+  "dependencies": {
+    "playwright": "^1.45.0"
+  },
+  "license": "MIT",
+  "keywords": ["career", "job-search", "pm", "product-manager", "korea", "claude-code", "ai", "skill"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jinjin1/career-ops-kr"
+  }
+}

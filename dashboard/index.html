@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>career-ops-kr Dashboard</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>career-ops-kr</h1>
+    <p class="subtitle">PM 구직 파이프라인 대시보드</p>
+    <div class="actions">
+      <label class="file-upload" for="fileInput">📂 데이터 로드</label>
+      <input type="file" id="fileInput" accept=".md,.tsv,.txt" style="display:none">
+      <button id="refreshBtn" disabled>🔄 새로고침</button>
+    </div>
+  </header>
+
+  <div id="empty-state" class="empty-state">
+    <div class="empty-icon">📋</div>
+    <h2>데이터를 로드해주세요</h2>
+    <p><code>data/applications.md</code> 파일을 드래그앤드롭하거나 위의 "데이터 로드" 버튼을 클릭하세요.</p>
+    <p class="hint">또는 <code>npx serve dashboard/</code>로 로컬 서버를 실행하면 자동으로 로드됩니다.</p>
+  </div>
+
+  <div id="dashboard" style="display:none">
+    <!-- Summary Cards -->
+    <div class="cards">
+      <div class="card" data-filter="all">
+        <div class="card-number" id="totalCount">0</div>
+        <div class="card-label">전체</div>
+      </div>
+      <div class="card card-blue" data-filter="applied">
+        <div class="card-number" id="appliedCount">0</div>
+        <div class="card-label">지원완료</div>
+      </div>
+      <div class="card card-green" data-filter="interview">
+        <div class="card-number" id="interviewCount">0</div>
+        <div class="card-label">면접</div>
+      </div>
+      <div class="card card-purple" data-filter="top">
+        <div class="card-number" id="topCount">0</div>
+        <div class="card-label">Top ≥4.0</div>
+      </div>
+    </div>
+
+    <!-- Charts -->
+    <div class="charts">
+      <div class="chart-container">
+        <h3>점수 분포</h3>
+        <canvas id="scoreChart"></canvas>
+      </div>
+      <div class="chart-container">
+        <h3>상태별 현황</h3>
+        <canvas id="statusChart"></canvas>
+      </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="filters">
+      <button class="filter-btn active" data-filter="all">전체</button>
+      <button class="filter-btn" data-filter="evaluated">평가완료</button>
+      <button class="filter-btn" data-filter="applied">지원완료</button>
+      <button class="filter-btn" data-filter="interview">면접</button>
+      <button class="filter-btn" data-filter="top">Top ≥4.0</button>
+      <button class="filter-btn" data-filter="skip">패스</button>
+    </div>
+
+    <!-- Application Table -->
+    <div class="table-container">
+      <table id="appTable">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>기업</th>
+            <th>직무</th>
+            <th class="sortable" data-sort="score">점수 ▼</th>
+            <th>상태</th>
+            <th>날짜</th>
+            <th>비고</th>
+          </tr>
+        </thead>
+        <tbody id="appTableBody">
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Drop zone overlay -->
+<div id="dropZone" class="drop-zone" style="display:none">
+  <div class="drop-message">📂 파일을 여기에 놓으세요</div>
+</div>
+
+<script src="parser.js"></script>
+<script src="dashboard.js"></script>
+</body>
+</html>

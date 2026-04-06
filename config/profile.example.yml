@@ -1,0 +1,62 @@
+# career-ops-kr 사용자 프로필
+# 이 파일을 config/profile.yml로 복사한 후 본인 정보로 수정하세요.
+
+# 기본 정보
+name: "홍길동"
+title: "Product Manager"
+years_experience: 5
+current_company: "현재 회사명"
+current_role: "현재 직무"
+
+# PM 전문 분야 (해당하는 것 모두 선택)
+pm_specialties:
+  - growth        # 그로스, 지표 중심, A/B 테스트
+  # - platform    # 플랫폼, 인프라, 개발자 경험
+  # - b2b         # 기업용 제품, SaaS
+  # - consumer    # 소비자 제품, UX, 리텐션
+  # - ai_data     # AI 제품, 데이터 기반 의사결정
+
+# 도메인 경험 (해당하는 것 모두 선택)
+domains:
+  - fintech       # 핀테크, 금융
+  # - ecommerce   # 이커머스, 커머스
+  # - social      # 소셜, 커뮤니티
+  # - saas        # B2B SaaS
+  # - platform    # 플랫폼
+  # - healthcare  # 헬스케어
+  # - education   # 에드테크
+  # - mobility    # 모빌리티
+
+# 선호 조건
+preferences:
+  min_salary: 7000        # 최소 연봉 (만원)
+  max_commute: 60         # 최대 통근 시간 (분)
+  remote_preference: hybrid  # office / hybrid / remote
+  company_size:           # 선호 기업 규모
+    - startup             # 스타트업 (1-50명)
+    - scaleup             # 스케일업 (50-500명)
+    - enterprise          # 대기업 (500명+)
+  level:                  # 지원 직급 범위
+    - mid                 # 미드레벨
+    - senior              # 시니어
+
+# 핵심 역량 키워드 (이력서에서 강조할 것)
+core_competencies:
+  - "데이터 기반 의사결정"
+  - "사용자 리서치"
+  - "A/B 테스트"
+  - "크로스펑셔널 협업"
+  - "프로덕트 로드맵"
+
+# 포트폴리오/증빙
+portfolio_url: ""         # 포트폴리오 URL (있으면)
+linkedin_url: ""          # LinkedIn 프로필 URL
+blog_url: ""              # 블로그/브런치 URL
+
+# 관심 기업 (portals.yml에 추가할 기업)
+target_companies:
+  - "카카오"
+  - "토스"
+  - "네이버"
+  - "당근"
+  - "쿠팡"

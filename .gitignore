@@ -1,0 +1,26 @@
+# 사용자 데이터
+data/
+reports/
+output/
+jds/
+
+# 사용자 설정
+cv.md
+career-description.md
+config/profile.yml
+portals.yml
+
+# Node
+node_modules/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# 폰트 (용량이 크므로 필요시 다운로드)
+fonts/*.woff2
+.gstack/
+.obsidian/
+dashboard/*.png
+*.log
+.env

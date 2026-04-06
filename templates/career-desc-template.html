@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>경력기술서</title>
+<style>
+  /* CDN fallback (works when local fonts are not available) */
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css');
+
+  /* Local font override (used by Playwright PDF generation) */
+  @font-face {
+    font-family: 'Pretendard';
+    src: url('../fonts/pretendard-regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'Pretendard';
+    src: url('../fonts/pretendard-bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'Pretendard';
+    src: url('../fonts/pretendard-semibold.woff2') format('woff2');
+    font-weight: 600;
+    font-style: normal;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 10pt;
+    line-height: 1.6;
+    color: #1a1a2e;
+    background: #fff;
+  }
+
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    padding: 20mm 25mm;
+    margin: 0 auto;
+  }
+
+  /* Header */
+  .header {
+    text-align: center;
+    margin-bottom: 20pt;
+    border-bottom: 2pt solid #4361ee;
+    padding-bottom: 12pt;
+  }
+  .header h1 {
+    font-size: 20pt;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin-bottom: 4pt;
+  }
+  .header .subtitle {
+    font-size: 11pt;
+    color: #4361ee;
+  }
+
+  /* Project */
+  .project {
+    margin-bottom: 20pt;
+    page-break-inside: avoid;
+  }
+  .project-header {
+    background: #f8f9ff;
+    padding: 10pt 14pt;
+    border-left: 3pt solid #4361ee;
+    margin-bottom: 10pt;
+  }
+  .project-title {
+    font-size: 13pt;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin-bottom: 4pt;
+  }
+  .project-meta {
+    font-size: 9pt;
+    color: #666;
+  }
+  .project-meta span {
+    margin-right: 14pt;
+  }
+
+  /* Sub-sections */
+  .sub-section {
+    margin-bottom: 8pt;
+  }
+  .sub-title {
+    font-size: 10pt;
+    font-weight: 700;
+    color: #4361ee;
+    margin-bottom: 4pt;
+  }
+  .sub-content {
+    font-size: 9.5pt;
+    color: #333;
+  }
+
+  /* Achievement list */
+  .achievements {
+    list-style: none;
+    padding-left: 0;
+  }
+  .achievements li {
+    padding-left: 14pt;
+    position: relative;
+    margin-bottom: 3pt;
+  }
+  .achievements li::before {
+    content: "●";
+    position: absolute;
+    left: 0;
+    color: #4361ee;
+    font-size: 6pt;
+    top: 4pt;
+  }
+  .achievements li.quantitative::before {
+    content: "📊";
+    font-size: 9pt;
+    top: 0;
+  }
+
+  /* Task list */
+  .tasks {
+    list-style: none;
+    padding-left: 0;
+  }
+  .tasks li {
+    padding-left: 14pt;
+    position: relative;
+    margin-bottom: 2pt;
+  }
+  .tasks li::before {
+    content: "▸";
+    position: absolute;
+    left: 0;
+    color: #999;
+  }
+
+  /* Tools */
+  .tools {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4pt;
+    margin-top: 4pt;
+  }
+  .tool-tag {
+    font-size: 8pt;
+    background: #f0f3ff;
+    color: #4361ee;
+    padding: 2pt 6pt;
+    border-radius: 2pt;
+  }
+
+  @media print {
+    body { background: none; }
+    .page { padding: 15mm 20mm; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <h1>경력기술서</h1>
+    <div class="subtitle">{{NAME}} | {{TITLE}} | {{TARGET_COMPANY}} {{TARGET_ROLE}}</div>
+  </div>
+
+  {{PROJECTS}}
+  <!--
+  <div class="project">
+    <div class="project-header">
+      <div class="project-title">프로젝트명</div>
+      <div class="project-meta">
+        <span>📅 2023.01 - 2023.12 (12개월)</span>
+        <span>🏢 회사명 / 팀명</span>
+        <span>👤 Product Manager</span>
+        <span>👥 팀 규모: 8명</span>
+      </div>
+    </div>
+
+    <div class="sub-section">
+      <div class="sub-title">프로젝트 개요</div>
+      <div class="sub-content">
+        프로젝트 배경과 목표 설명.
+      </div>
+    </div>
+
+    <div class="sub-section">
+      <div class="sub-title">주요 성과</div>
+      <ul class="achievements">
+        <li class="quantitative">전환율 15% → 23% 향상 (53% 개선)</li>
+        <li class="quantitative">MAU 50만 → 80만 달성</li>
+        <li>프로세스 개선으로 출시 주기 2주 단축</li>
+      </ul>
+    </div>
+
+    <div class="sub-section">
+      <div class="sub-title">담당 업무</div>
+      <ul class="tasks">
+        <li>사용자 리서치 및 문제 정의</li>
+        <li>PRD 작성 및 스펙 정의</li>
+        <li>개발팀과 스프린트 기획 및 실행</li>
+      </ul>
+    </div>
+
+    <div class="sub-section">
+      <div class="sub-title">사용 도구 및 방법론</div>
+      <div class="tools">
+        <span class="tool-tag">Figma</span>
+        <span class="tool-tag">Jira</span>
+        <span class="tool-tag">Amplitude</span>
+      </div>
+    </div>
+  </div>
+  -->
+
+</div>
+</body>
+</html>

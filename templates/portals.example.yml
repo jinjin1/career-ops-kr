@@ -1,0 +1,201 @@
+# career-ops-kr: Korean PM Job Search Portal Configuration
+# 한국 PM/PO/서비스기획 채용 포털 스캔 설정
+#
+# Usage: Copy this file to portals.yml and customize as needed.
+#   cp portals.example.yml portals.yml
+
+# ---------------------------------------------------------------------------
+# Company Career Portals
+# ---------------------------------------------------------------------------
+portals:
+
+  # ── 카카오그룹 ──────────────────────────────────────────────────────────
+  - name: 카카오
+    careers_url: https://careers.kakao.com/jobs
+    platform_type: custom
+    group: 카카오그룹
+
+  - name: 카카오뱅크
+    careers_url: https://recruit.kakaobank.com/jobs
+    platform_type: custom
+    group: 카카오그룹
+
+  - name: 카카오페이
+    careers_url: https://kakaopay.career.greetinghr.com
+    platform_type: greeting
+    group: 카카오그룹
+
+  # ── 토스그룹 ───────────────────────────────────────────────────────────
+  - name: 토스
+    careers_url: https://toss.im/career/jobs
+    platform_type: custom
+    group: 토스그룹
+
+  - name: 토스뱅크
+    careers_url: https://recruit.tossbank.com
+    platform_type: custom
+    group: 토스그룹
+
+  - name: 토스증권
+    careers_url: https://recruit.tossinvest.com
+    platform_type: custom
+    group: 토스그룹
+
+  # ── 독립 ───────────────────────────────────────────────────────────────
+  - name: 네이버
+    careers_url: https://recruit.navercorp.com/rcrt/list.do
+    platform_type: custom
+    scan_strategy: playwright_first
+    group: 독립
+
+  - name: 쿠팡
+    careers_url: https://www.coupang.jobs/en/jobs/
+    platform_type: custom
+    scan_strategy: websearch_only  # Cloudflare 차단
+    websearch_queries:
+      - "site:coupang.jobs product manager"
+      - "site:coupang.jobs PM Seoul"
+      - "쿠팡 프로덕트매니저 채용"
+    group: 독립
+
+  - name: 라인
+    careers_url: https://careers.linecorp.com
+    platform_type: greenhouse
+    scan_strategy: playwright_first
+    group: 독립
+
+  - name: 당근
+    careers_url: https://about.daangn.com/jobs/
+    platform_type: lever
+    scan_strategy: playwright_first
+    group: 독립
+
+  - name: 리멤버
+    careers_url: https://career.rememberapp.co.kr/job/postings
+    platform_type: custom
+    scan_strategy: playwright_first  # browse stealth 접근 가능 (200). SPA이므로 검색어 입력 필요
+    websearch_queries:  # Playwright 실패 시 폴백
+      - "site:career.rememberapp.co.kr 프로덕트"
+      - "site:career.rememberapp.co.kr PM"
+      - "site:career.rememberapp.co.kr 서비스기획"
+    group: 독립
+
+  - name: 오퍼센트
+    careers_url: https://offercent.co.kr/list?jobCategories=0020001,0010010
+    platform_type: custom
+    scan_strategy: playwright_first
+    group: 독립
+
+  # ── 채용 플랫폼 (WebSearch 전용) ────────────────────────────────────────
+  - name: 원티드
+    careers_url: https://www.wanted.co.kr/wdlist/518/876
+    platform_type: custom
+    scan_strategy: websearch_only  # CDN 차단
+    websearch_queries:
+      - "site:wanted.co.kr 프로덕트매니저"
+      - "site:wanted.co.kr 서비스기획자"
+      - "site:wanted.co.kr PO 프로덕트오너"
+      - "site:wanted.co.kr PM 기획 핀테크"
+    group: 플랫폼
+
+# ---------------------------------------------------------------------------
+# WebSearch Queries
+# 구직 플랫폼 및 채용 사이트 대상 검색 쿼리
+# ---------------------------------------------------------------------------
+search_queries:
+  # 원티드 (Wanted)
+  - "site:wanted.co.kr 프로덕트매니저 PM"
+  - "site:wanted.co.kr 서비스기획자"
+  - "site:wanted.co.kr PO 프로덕트오너"
+  - "site:wanted.co.kr PM 기획 핀테크"
+
+  # 리멤버
+  - "site:career.rememberapp.co.kr 프로덕트"
+  - "site:career.rememberapp.co.kr 서비스기획"
+
+  # 링크드인
+  - "site:linkedin.com/jobs 프로덕트매니저 한국"
+  - "site:linkedin.com/jobs product manager Korea Seoul"
+  - "site:linkedin.com/jobs 서비스기획 Seoul"
+
+  # 잡코리아 / 사람인
+  - "site:jobkorea.co.kr 프로덕트매니저"
+  - "site:jobkorea.co.kr 서비스기획자 PM"
+  - "site:saramin.co.kr 프로덕트매니저"
+  - "site:saramin.co.kr 서비스기획자"
+
+  # 프로그래머스 / 랠릿
+  - "site:career.programmers.co.kr 프로덕트매니저"
+  - "site:rallit.com 프로덕트매니저 PM"
+  - "site:rallit.com 서비스기획"
+
+  # 채용 aggregator
+  - "site:somoon.ai 프로덕트매니저"
+  - "site:catch.co.kr 프로덕트매니저 PM"
+  - "site:jumpit.co.kr 프로덕트매니저"
+
+  # 기업별 보완 (Playwright 성공해도 WebSearch로 추가 발견)
+  - "site:coupang.jobs product manager"
+  - "site:toss.im/career product owner"
+  - "site:about.daangn.com/jobs product manager"
+  - "site:careers.kakao.com 기획"
+
+  # 링크드인 확장
+  - "site:linkedin.com/jobs product manager Seoul Korea"
+  - "site:linkedin.com/jobs 서비스기획 서울"
+  - "site:linkedin.com/jobs PM fintech Korea"
+
+  # 일반 Google 검색 (site: 없이, 넓은 범위)
+  - "프로덕트매니저 채용 2026"
+  - "프로덕트 매니저 채용 서울 경력"
+  - "PM 채용 스타트업 스케일업 서울"
+  - "PO 프로덕트 오너 채용 2026"
+  - "서비스기획자 채용 경력 서울"
+  - "핀테크 프로덕트매니저 채용"
+  - "커머스 프로덕트매니저 PM 채용"
+  - "AI 프로덕트매니저 채용 서울"
+
+# ---------------------------------------------------------------------------
+# Title Filters
+# 공고 제목 필터링 키워드 (positive = 포함 시 매칭, negative = 포함 시 제외)
+# ---------------------------------------------------------------------------
+title_filter:
+  positive:
+    - 프로덕트매니저
+    - 프로덕트 매니저
+    - Product Manager
+    - PM
+    - PO
+    - 프로덕트오너
+    - 프로덕트 오너
+    - Product Owner
+    - 서비스기획
+    - 서비스 기획
+    - 서비스기획자
+    - 프로덕트기획
+    - 프로덕트 기획
+    - 전략기획
+    - 사업기획
+
+  negative:
+    - 인턴
+    - intern
+    - 시니어 엔지니어
+    - Senior Engineer
+    - 프론트엔드
+    - 백엔드
+    - Frontend
+    - Backend
+    - DevOps
+    - SRE
+    - QA 엔지니어
+    - 디자이너
+    - Designer
+    - 마케팅
+    - Marketing
+    - 영업
+    - Sales
+    - HR
+    - 인사
+    - 재무
+    - Finance

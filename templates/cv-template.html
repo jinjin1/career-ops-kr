@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>이력서</title>
+<style>
+  /* CDN fallback (works when local fonts are not available) */
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css');
+
+  /* Local font override (used by Playwright PDF generation) */
+  @font-face {
+    font-family: 'Pretendard';
+    src: url('../fonts/pretendard-regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'Pretendard';
+    src: url('../fonts/pretendard-bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'Pretendard';
+    src: url('../fonts/pretendard-semibold.woff2') format('woff2');
+    font-weight: 600;
+    font-style: normal;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 10pt;
+    line-height: 1.5;
+    color: #1a1a2e;
+    background: #fff;
+  }
+
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    padding: 20mm 25mm;
+    margin: 0 auto;
+  }
+
+  /* Header */
+  .header {
+    margin-bottom: 16pt;
+    border-bottom: 2pt solid #4361ee;
+    padding-bottom: 12pt;
+  }
+  .header h1 {
+    font-size: 22pt;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin-bottom: 4pt;
+  }
+  .header .subtitle {
+    font-size: 12pt;
+    font-weight: 600;
+    color: #4361ee;
+    margin-bottom: 8pt;
+  }
+  .header .contact {
+    font-size: 9pt;
+    color: #555;
+  }
+  .header .contact span {
+    margin-right: 12pt;
+  }
+
+  /* Sections */
+  .section {
+    margin-bottom: 14pt;
+  }
+  .section-title {
+    font-size: 12pt;
+    font-weight: 700;
+    color: #4361ee;
+    border-bottom: 1pt solid #e0e0e0;
+    padding-bottom: 3pt;
+    margin-bottom: 8pt;
+    text-transform: uppercase;
+    letter-spacing: 0.5pt;
+  }
+
+  /* Profile Summary */
+  .profile-summary {
+    font-size: 10pt;
+    line-height: 1.6;
+    color: #333;
+  }
+
+  /* Experience */
+  .experience-item {
+    margin-bottom: 10pt;
+  }
+  .experience-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  .company-name {
+    font-size: 11pt;
+    font-weight: 700;
+    color: #1a1a2e;
+  }
+  .period {
+    font-size: 9pt;
+    color: #777;
+  }
+  .role-name {
+    font-size: 10pt;
+    font-weight: 600;
+    color: #4361ee;
+    margin-bottom: 4pt;
+  }
+  .experience-bullets {
+    list-style: none;
+    padding-left: 0;
+  }
+  .experience-bullets li {
+    font-size: 9.5pt;
+    line-height: 1.5;
+    margin-bottom: 2pt;
+    padding-left: 12pt;
+    position: relative;
+  }
+  .experience-bullets li::before {
+    content: "▸";
+    position: absolute;
+    left: 0;
+    color: #4361ee;
+  }
+
+  /* Competency Grid */
+  .competency-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6pt;
+  }
+  .competency-tag {
+    font-size: 9pt;
+    background: #f0f3ff;
+    color: #4361ee;
+    padding: 3pt 8pt;
+    border-radius: 3pt;
+    border: 0.5pt solid #d0d8ff;
+  }
+
+  /* Education */
+  .education-item {
+    margin-bottom: 6pt;
+  }
+  .education-header {
+    display: flex;
+    justify-content: space-between;
+  }
+  .school-name {
+    font-weight: 600;
+  }
+  .degree {
+    font-size: 9.5pt;
+    color: #555;
+  }
+
+  /* Print styles */
+  @media print {
+    body { background: none; }
+    .page { padding: 15mm 20mm; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <h1>{{NAME}}</h1>
+    <div class="subtitle">{{TITLE}}</div>
+    <div class="contact">
+      <span>{{EMAIL}}</span>
+      <span>{{PHONE}}</span>
+      <span>{{LINKEDIN}}</span>
+      <span>{{PORTFOLIO}}</span>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">프로필 요약</div>
+    <div class="profile-summary">
+      {{PROFILE_SUMMARY}}
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">핵심 역량</div>
+    <div class="competency-grid">
+      {{COMPETENCIES}}
+      <!-- 예: <span class="competency-tag">데이터 기반 의사결정</span> -->
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">경력 사항</div>
+    {{EXPERIENCE}}
+    <!--
+    <div class="experience-item">
+      <div class="experience-header">
+        <span class="company-name">회사명</span>
+        <span class="period">2023.01 - 현재</span>
+      </div>
+      <div class="role-name">Product Manager</div>
+      <ul class="experience-bullets">
+        <li>성과 설명 (정량적 수치 포함)</li>
+      </ul>
+    </div>
+    -->
+  </div>
+
+  <div class="section">
+    <div class="section-title">학력</div>
+    {{EDUCATION}}
+    <!--
+    <div class="education-item">
+      <div class="education-header">
+        <span class="school-name">대학교명</span>
+        <span class="period">2015.03 - 2019.02</span>
+      </div>
+      <div class="degree">학과명, 학사</div>
+    </div>
+    -->
+  </div>
+
+  <div class="section">
+    <div class="section-title">자격/수상</div>
+    {{CERTIFICATIONS}}
+  </div>
+
+</div>
+</body>
+</html>

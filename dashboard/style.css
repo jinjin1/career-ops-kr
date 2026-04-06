@@ -1,0 +1,237 @@
+:root {
+  --primary: #4361ee;
+  --primary-light: #f0f3ff;
+  --text: #1a1a2e;
+  --text-secondary: #666;
+  --bg: #fafbff;
+  --card-bg: #fff;
+  --border: #e8ecf4;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+}
+
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css');
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+/* Header */
+header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+header h1 {
+  font-size: 24px;
+  font-weight: 700;
+}
+header .subtitle {
+  color: var(--text-secondary);
+  font-size: 14px;
+  flex: 1;
+}
+.actions {
+  display: flex;
+  gap: 8px;
+}
+.file-upload, button {
+  padding: 8px 16px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--card-bg);
+  cursor: pointer;
+  font-size: 13px;
+  transition: all 0.2s;
+}
+.file-upload:hover, button:hover:not(:disabled) {
+  border-color: var(--primary);
+  background: var(--primary-light);
+}
+button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 80px 20px;
+  background: var(--card-bg);
+  border-radius: 12px;
+  border: 2px dashed var(--border);
+}
+.empty-icon { font-size: 48px; margin-bottom: 16px; }
+.empty-state h2 { margin-bottom: 8px; }
+.empty-state p { color: var(--text-secondary); font-size: 14px; }
+.empty-state .hint { margin-top: 12px; font-size: 12px; }
+.empty-state code {
+  background: var(--primary-light);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+/* Cards */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.card {
+  background: var(--card-bg);
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.card:hover { border-color: var(--primary); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(67,97,238,0.1); }
+.card-number { font-size: 32px; font-weight: 700; }
+.card-label { font-size: 13px; color: var(--text-secondary); margin-top: 4px; }
+.card-blue .card-number { color: var(--primary); }
+.card-green .card-number { color: var(--success); }
+.card-purple .card-number { color: #8b5cf6; }
+
+/* Charts */
+.charts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.chart-container {
+  background: var(--card-bg);
+  border-radius: 12px;
+  padding: 24px;
+  border: 1px solid var(--border);
+  min-height: 280px;
+}
+.chart-container h3 {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: var(--text-secondary);
+}
+
+/* Filters */
+.filters {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+.filter-btn {
+  padding: 6px 14px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  background: var(--card-bg);
+  cursor: pointer;
+  font-size: 13px;
+  transition: all 0.2s;
+}
+.filter-btn:hover { border-color: var(--primary); }
+.filter-btn.active {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+
+/* Table */
+.table-container {
+  background: var(--card-bg);
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  overflow-x: auto;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+th, td {
+  padding: 12px 16px;
+  text-align: left;
+  font-size: 13px;
+  border-bottom: 1px solid var(--border);
+}
+th {
+  font-weight: 600;
+  color: var(--text-secondary);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+th.sortable { cursor: pointer; }
+th.sortable:hover { color: var(--primary); }
+tr:hover { background: var(--primary-light); }
+tr:last-child td { border-bottom: none; }
+
+/* Score badge */
+.score-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 12px;
+}
+.score-high { background: #dcfce7; color: #166534; }
+.score-mid { background: #fef3c7; color: #92400e; }
+.score-low { background: #fee2e2; color: #991b1b; }
+
+/* Status badge */
+.status-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+}
+.status-evaluated { background: #e0f2fe; color: #075985; }
+.status-applied { background: #dbeafe; color: #1e40af; }
+.status-interview { background: #dcfce7; color: #166534; }
+.status-offer { background: #fef3c7; color: #92400e; }
+.status-rejected { background: #fee2e2; color: #991b1b; }
+.status-responded { background: #ede9fe; color: #6d28d9; }
+.status-discarded { background: #f3f4f6; color: #6b7280; }
+.status-skip { background: #f3f4f6; color: #6b7280; }
+
+/* Drop zone */
+.drop-zone {
+  position: fixed;
+  inset: 0;
+  background: rgba(67,97,238,0.1);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+.drop-message {
+  background: var(--card-bg);
+  padding: 40px 60px;
+  border-radius: 16px;
+  border: 3px dashed var(--primary);
+  font-size: 20px;
+  font-weight: 600;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .cards { grid-template-columns: repeat(2, 1fr); }
+  .charts { grid-template-columns: 1fr; }
+  header { flex-direction: column; align-items: flex-start; }
+}
