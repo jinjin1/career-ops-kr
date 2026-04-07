@@ -46,7 +46,9 @@ npm run dashboard     # 대시보드 로컬 서버 (npx serve dashboard)
 **데이터 흐름**: scan → pipeline.md(미처리 공고) → evaluate → applications.md(트래커) + reports/(보고서) → pdf/career-desc → output/(PDF)
 
 **실행 코드 (JS)**:
-- `scan-portal.mjs` — Playwright + stealth로 채용 사이트 스캔. 리멤버 등 anti-bot 사이트 접근 가능.
+- `lib/browser.mjs` — 공유 stealth 브라우저 설정 (Playwright). scan-portal.mjs, validate-urls.mjs에서 사용.
+- `scan-portal.mjs` — Playwright + stealth로 채용 사이트 스캔. lib/browser.mjs에서 브라우저 설정 import.
+- `validate-urls.mjs` — WebSearch(Tier 2) URL 유효성 검증. HTTP HEAD + Playwright 폴백. stdin JSON 입력, JSON 출력.
 - `generate-pdf.mjs` — HTML → A4 PDF 변환. 출력 경로를 `output/`, `/tmp`으로 제한.
 - `dashboard/parser.js` — applications.md 파서. 브라우저와 Node.js에서 공유.
 - `dashboard/dashboard.js` — Chart.js 시각화. parser.js를 `<script>`로 로드.
@@ -76,6 +78,7 @@ npm run dashboard     # 대시보드 로컬 서버 (npx serve dashboard)
 | `data/` | 지원 현황, 파이프라인, 스캔 이력 (자동 생성) |
 | `reports/` | 평가 보고서 (자동 생성) |
 | `output/` | 생성된 PDF (자동 생성) |
+| `autoresearch/` | 자동 리서치 실험 데이터 (배포 불필요) |
 
 ## PM 평가 시스템
 

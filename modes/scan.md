@@ -133,6 +133,25 @@ negative_keywords:
 - 제품 관련 키워드(사용자 경험, 로드맵, 지표, A/B 테스트)가 있으면 Product Manager.
 - 일정 관리, 리소스 배분, 프로젝트 일정 중심이면 Project Manager → 필터 아웃.
 
+## URL 검증 (Tier 2 WebSearch 결과만)
+
+WebSearch로 발견한 URL은 Google 인덱스 지연으로 마감된 공고가 포함될 수 있습니다.
+pipeline.md 기록 전에 `validate-urls.mjs`로 링크 유효성을 검증합니다.
+
+**검증 대상:** WebSearch(Tier 2) 결과만. Playwright(Tier 1)은 라이브 페이지 추출이므로 검증 건너뜀.
+
+**실행 방법:**
+1. WebSearch 결과를 JSON 배열로 구성: `[{title, url, company, source: "websearch"}]`
+2. `validate-urls.mjs`에 stdin으로 전달: `echo '<JSON>' | node validate-urls.mjs --json`
+3. `portals.yml`에 `requires_browser_validation: true`인 도메인은 `--browser` 플래그 추가
+
+**판정 결과 처리:**
+- `valid` → 그대로 중복 제거 단계로 진행
+- `invalid` (dead) → 제거. scan-history.tsv에 `validation_dead` 기록. 스캔 보고서에 마감 사유 표시
+- `uncertain` (timeout/blocked) → pipeline.md에 ⚠️ 표시 후 추가 (`- [ ] ⚠️ [기업] 직무 — URL`)
+
+**속도 제어:** 도메인당 1초 간격, 최대 3개 도메인 동시 처리. 과도한 요청 방지.
+
 ## 중복 제거
 
 새로 발견된 공고는 아래 3개 파일과 대조하여 중복을 제거합니다:
@@ -156,10 +175,11 @@ negative_keywords:
 모든 발견된 공고(필터 통과 여부 무관)를 `data/scan-history.tsv`에 기록합니다:
 
 ```
-날짜	기업	직무	URL	필터결과	스캔방법
-2026-04-07	카카오	Product Manager	https://...	pass	playwright
-2026-04-07	쿠팡	Product Manager	https://...	pass	websearch_fallback
-2026-04-07	카카오	프로젝트 매니저	https://...	filtered_out	playwright
+날짜	기업	직무	URL	필터결과	스캔방법	검증결과
+2026-04-07	카카오	Product Manager	https://...	pass	playwright	skip
+2026-04-07	쿠팡	Product Manager	https://...	pass	websearch_fallback	valid
+2026-04-07	쿠팡	Sr. PM	https://...	pass	websearch_fallback	validation_dead
+2026-04-07	카카오	프로젝트 매니저	https://...	filtered_out	playwright	skip
 ```
 
 ## 스캔 완료 보고
@@ -186,6 +206,14 @@ pipeline.md에 추가: 12건
   - 리멤버: 동적 로딩 → WebSearch로 2건 발견
 
 💡 팁: 원티드/리멤버 앱에서 PM 키워드 알림을 설정하면 누락을 줄일 수 있습니다.
+
+🔗 링크 검증 결과 (WebSearch만):
+├── 검증 대상: N건
+├── ✅ 유효: N건
+├── ❌ 마감: N건
+│   - [기업] 직무명 — URL (사유: HTTP 404 / 홈페이지 리다이렉트 / 콘텐츠 패턴)
+└── ⚠️ 확인 필요: N건
+    - [기업] 직무명 — URL (사유: 타임아웃 / 접근 차단)
 ```
 
 ## 윤리 규칙
