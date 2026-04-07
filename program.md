@@ -271,6 +271,140 @@ mkdir -p autoresearch/fixtures autoresearch/output
 # 5. 루프 시작
 ```
 
+---
+
+## Track D: Setup 온보딩 품질 (setup.md 개선)
+
+### 목표
+
+`modes/setup.md`의 온보딩 지시를 개선하여, 가상 이력서(examples/cv-example.md)를 투입했을 때 더 높은 품질의 온보딩 경험을 제공한다.
+
+### Setup
+
+#### 1. 테스트 Fixture — 가상 CV
+
+`examples/cv-example.md`의 홍길동 이력서를 그대로 사용한다. (이미 가상 인물.)
+
+#### 2. 품질 루브릭 (0-100점)
+
+| 차원 | 배점 | 평가 기준 |
+|------|------|----------|
+| **Parsing accuracy** (파싱 정확도) | 0-20 | cv-example.md에서 정보를 정확히 추출하는가? |
+| **Skeleton completeness** (스켈레톤 완성도) | 0-20 | career-description.md 스캐폴드가 유용하고 채울 수 있는가? |
+| **Conversation clarity** (대화 명확성) | 0-20 | 비개발자에게 질문이 명확한가? |
+| **Error handling** (에러 처리) | 0-20 | 실패 케이스가 잘 명시되어 있는가? |
+| **5-minute experience** (5분 경험) | 0-20 | 5분 내에 플로우를 완료할 수 있는가? |
+
+### 실험 루프
+
+```
+반복:
+  1. baseline_score = 마지막으로 kept된 점수 (첫 실행이면 현재 setup.md로 측정)
+
+  2. modes/setup.md 읽기
+
+  3. 개선 가설 수립 — 한 가지만:
+     예시:
+     - "PDF 파싱 실패 시 대체 경로를 더 명확하게 안내"
+     - "경력기술서 스켈레톤에 STAR 형식 가이드 추가"
+     - "비개발자용 용어 설명 추가"
+
+  4. setup.md 수정 (최소 diff)
+
+  5. git commit -m "autoresearch(D): {변경 설명}"
+
+  6. 시뮬레이션 실행:
+     - examples/cv-example.md를 입력으로 사용
+     - 수정된 setup.md의 지시에 따라 온보딩 플로우 시뮬레이션
+     - 루브릭에 따라 채점
+
+  7. 판정:
+     IF new_score - baseline_score > 2:
+       KEEP — 로그에 kept=yes 기록
+       baseline_score = new_score
+     ELSE:
+       DISCARD — git reset --hard HEAD~1
+       로그에 kept=no 기록
+
+  8. results.tsv에 기록
+
+  9. 다음 반복 (또는 다른 트랙으로 전환)
+```
+
+### 수정 가능 범위
+
+| 허용 | 금지 |
+|------|------|
+| `modes/setup.md` 내 지시문 수정 | 온보딩 단계(Step 1-5) 자체를 삭제/병합 |
+| 새로운 지시 항목 추가 | 출력 파일 목록 변경 |
+| 에러 처리 경로 추가/개선 | `_shared.md` 수정 |
+| 대화 문구 개선 | fixture 파일 수정 (테스트 일관성) |
+
+---
+
+## Track E: 모드 구조 일관성
+
+### 목표
+
+모든 `modes/*.md` 파일이 필수 섹션을 갖추도록 구조적 일관성을 높인다.
+
+### 필수 섹션
+
+모든 모드 파일은 아래 섹션을 포함해야 한다:
+- 제목 (# 타이틀)
+- 설명 (첫 문단)
+- 사전 조건/사전 준비
+- 실행 절차
+- 출력
+- 윤리 규칙
+
+### 메트릭
+
+```
+Score = (필수 섹션을 모두 갖춘 모드 수 / 전체 모드 수) × 100
+```
+
+각 `modes/*.md` 파일을 읽고 필수 섹션 헤더 존재 여부를 확인한다.
+(`_shared.md`는 공유 설정 파일이므로 제외.)
+
+### 실험 루프
+
+```
+반복:
+  1. baseline_score = 마지막으로 kept된 점수
+
+  2. 모든 modes/*.md 파일 읽기
+
+  3. 필수 섹션이 누락된 모드 파일 식별
+
+  4. 하나의 모드 파일에 누락된 섹션 추가 (최소 diff)
+
+  5. git commit -m "autoresearch(E): {변경 설명}"
+
+  6. 재측정:
+     - 모든 modes/*.md 파일의 필수 섹션 존재 여부 재확인
+     - 새 점수 계산
+
+  7. 판정:
+     IF new_score - baseline_score > 2:
+       KEEP — 로그에 kept=yes 기록
+     ELSE:
+       DISCARD — git reset --hard HEAD~1
+       로그에 kept=no 기록
+
+  8. results.tsv에 기록
+```
+
+### 수정 가능 범위
+
+| 허용 | 금지 |
+|------|------|
+| 누락된 필수 섹션 추가 | 기존 섹션 내용 수정 |
+| 섹션 헤더 및 최소 내용 추가 | 기존 섹션 삭제/병합 |
+| | `_shared.md` 수정 |
+
+---
+
 에이전트는 아래 순서로 실행한다:
 
 ```
