@@ -13,3 +13,7 @@ bcb7965	C	2	-	+2	yes	SaaS B2B PM query - 2 new Rallit PM listings (마켓보로,
 39ab39c	D	87	parse:18/skel:16/conv:19/err:16/5min:18	+3	yes	add PM archetype descriptions and default suggestion
 581ac7e	E	50	-	+10	yes	add missing 사전 조건 and 출력 sections to contact.md
 9348e8e	E	60	-	+10	yes	add missing 사전 조건, 실행 절차, 윤리 규칙 sections to deep.md
+52d14f9	E	70	-	+10	yes	add 사전 조건, 실행 절차, 출력, 윤리 규칙 to pipeline.md (4 sections)
+1dde119	C	2	-	+2	yes	startup Series A query + evergreen queries (remove 2026) - 2 new URLs (groupby.kr, offercent)
+d717ac0	D	90	parse:18/skel:16/conv:19/err:19/5min:18	+3	yes	add cv.md validation step after generation (sections, gaps, metrics check)
+-	B	93	C18/S18/A19/SC19/K19	0	skip	Track B: ceiling reached - no meaningful improvement found at 93/100
