@@ -47,20 +47,23 @@ npm install
 npm run setup  # Playwright + Pretendard 폰트 설치
 ```
 
-### 2. 프로필 설정
+### 2. 온보딩 (이력서 PDF만 있으면 됩니다)
 
-```bash
-cp templates/portals.example.yml portals.yml
-cp config/profile.example.yml config/profile.yml
-# profile.yml을 본인 정보로 수정
+Claude Code에서 실행:
+
+```
+/career-ops-kr setup
 ```
 
-### 3. 이력서 작성
+대화형 온보딩이 시작됩니다:
+- 이력서 PDF/Word/마크다운을 투입하면 자동으로 `cv.md` 생성
+- 경력기술서 스켈레톤 자동 생성
+- PM 아키타입, 관심 기업, 연봉 등 프로필 설정
+- 완료 후 첫 스캔까지 약 5분
 
-`cv.md`와 `career-description.md`를 프로젝트 루트에 작성합니다.
-`examples/` 폴더에 예시 파일이 있습니다.
+> 이력서 파일이 없어도 대화형으로 직접 입력할 수 있습니다.
 
-### 4. 사용
+### 3. 사용
 
 Claude Code에서 슬래시 커맨드로 실행합니다:
 

@@ -14,7 +14,7 @@ Claude Code 스킬로 동작하며, 채용 공고 스캔, 평가, 맞춤 이력�
 ## 사용법
 
 ```
-/career-ops-kr                    # 도움말 / 온보딩
+/career-ops-kr setup              # 원클릭 온보딩 (이력서 PDF → 자동 설정)
 /career-ops-kr scan               # 한국 기업 채용 사이트 스캔
 /career-ops-kr [URL 붙여넣기]     # 공고 평가
 /career-ops-kr pdf [URL]          # 맞춤 이력서 PDF

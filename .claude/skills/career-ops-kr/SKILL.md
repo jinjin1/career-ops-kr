@@ -15,6 +15,7 @@
 
 | 명령 | 모드 파일 | 설명 |
 |------|-----------|------|
+| `setup` / `설정` / `온보딩` | `modes/setup.md` | 원클릭 온보딩 (이력서 투입 → 자동 설정) |
 | `scan` | `modes/scan.md` | 한국 기업 채용 사이트 스캔 |
 | `evaluate` / `평가` | `modes/evaluate.md` | 단일 공고 평가 |
 | `pdf` / `이력서` | `modes/pdf.md` | 맞춤 이력서 PDF 생성 |
