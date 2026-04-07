@@ -92,7 +92,7 @@ Claude Code에서 슬래시 커맨드로 실행합니다:
     ┌────┴────┐
     ▼         ▼
 ┌────────┐ ┌────────────┐
-│_shared │ │ modes/*.md  │  ← 9개 모드
+│_shared │ │ modes/*.md  │  ← 10개 모드
 │ .md    │ │ (scan,      │
 │(공유   │ │  evaluate,  │
 │ 설정)  │ │  pdf, ...)  │
