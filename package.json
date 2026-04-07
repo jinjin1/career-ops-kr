@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "test": "node dashboard/dashboard.test.mjs",
+    "scan": "node scan-portal.mjs",
     "pdf": "node generate-pdf.mjs",
     "dashboard": "npx serve dashboard",
     "setup": "npx playwright install chromium && npm run fonts",
