@@ -133,8 +133,12 @@ PDF에서 STAR 형식의 상세 프로젝트 기술은 어렵습니다.
 
 ```
 1. "어떤 유형의 PM 역할에 관심 있으신가요?" (복수 선택 가능)
-   → Growth PM / Platform PM / B2B PM / Consumer PM / AI/Data PM
-   (각 아키타입은 _shared.md의 정의를 따릅니다)
+   → Growth PM — 지표 개선, A/B 테스트, 퍼널 최적화 중심
+   → Platform PM — 내부 플랫폼, API, 개발자 도구 중심
+   → B2B PM — 기업 고객 대상 SaaS/솔루션 중심
+   → Consumer PM — 일반 사용자 대상 앱/서비스 중심
+   → AI/Data PM — AI 기능, 데이터 파이프라인, ML 모델 중심
+   (잘 모르겠으면 "Consumer PM"을 선택하세요. 나중에 변경할 수 있습니다.)
 
 2. "관심 있는 기업이 있나요?" (복수 선택 가능)
    → 카카오 / 토스 / 네이버 / 당근 / 쿠팡 / 기타 (직접 입력)
