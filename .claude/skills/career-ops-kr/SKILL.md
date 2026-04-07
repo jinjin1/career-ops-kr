@@ -37,8 +37,5 @@
 
 ## 온보딩 (첫 사용 시)
 
-1. `cv.md` 존재 확인 → 없으면 생성 가이드
-2. `career-description.md` 존재 확인 → 없으면 생성 가이드
-3. `config/profile.yml` 존재 확인 → 없으면 `config/profile.example.yml`에서 복사
-4. `portals.yml` 존재 확인 → 없으면 `templates/portals.example.yml`에서 복사
-5. 사용자에게 핵심 역량과 타겟 기업 질문
+첫 사용 시 `/career-ops-kr setup`을 실행하여 대화형 온보딩을 진행합니다.
+상세 흐름은 `modes/setup.md`를 참조합니다.

@@ -152,7 +152,7 @@ career-ops-kr/
 ├── CLAUDE.md                    # 에이전트 지시사항
 ├── .claude/skills/career-ops-kr/
 │   └── SKILL.md                 # 슬래시 커맨드 라우터
-├── modes/                       # 9개 모드
+├── modes/                       # 10개 모드
 │   ├── _shared.md               # PM 아키타입, 평가 기준
 │   ├── evaluate.md              # 공고 평가
 │   ├── scan.md                  # 포털 스캔
@@ -162,7 +162,8 @@ career-ops-kr/
 │   ├── pipeline.md              # 파이프라인 관리
 │   ├── tracker.md               # 지원 현황
 │   ├── contact.md               # 링크드인 메시지
-│   └── deep.md                  # 기업 심층 조사
+│   ├── deep.md                  # 기업 심층 조사
+│   └── setup.md                 # 원클릭 온보딩
 ├── templates/
 │   ├── cv-template.html         # 이력서 HTML (Pretendard)
 │   ├── career-desc-template.html
