@@ -8,7 +8,7 @@
  * 사용법:
  *   node scan-portal.mjs --url "https://toss.im/career/jobs" --keyword "프로덕트"
  *   node scan-portal.mjs --url "https://career.rememberapp.co.kr/job/postings" --keyword "PM"
- *   node scan-portal.mjs --list portals.yml
+ *   node scan-portal.mjs --url "https://about.daangn.com/jobs/" --keyword "Product Manager"
  */
 
 import { chromium } from 'playwright';
@@ -29,7 +29,7 @@ const STEALTH_ARGS = [
   '--no-default-browser-check',
 ];
 
-const STEALTH_USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36';
+const STEALTH_USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36';
 
 async function createStealthBrowser() {
   const browser = await chromium.launch({
@@ -151,7 +151,7 @@ const args = process.argv.slice(2);
 const urlIdx = args.indexOf('--url');
 const keywordIdx = args.indexOf('--keyword');
 
-if (urlIdx === -1) {
+if (urlIdx === -1 || !args[urlIdx + 1] || args[urlIdx + 1].startsWith('--')) {
   console.log('사용법:');
   console.log('  node scan-portal.mjs --url <채용페이지URL> [--keyword <키워드>]');
   console.log('');
@@ -167,8 +167,8 @@ const keyword = keywordIdx !== -1 ? args[keywordIdx + 1] : null;
 const keywords = {
   positive: keyword
     ? [keyword]
-    : ['프로덕트 매니저', '프로덕트매니저', 'Product Manager', 'PM', 'PO', '서비스기획'],
-  negative: ['인턴', 'intern', 'Project Manager', '파트타임', '계약직'],
+    : ['프로덕트 매니저', '프로덕트매니저', 'Product Manager', 'Product Owner', '프로덕트 오너', '서비스기획', '서비스 기획'],
+  negative: ['인턴', 'intern', 'Project Manager', '파트타임', '계약직', '아르바이트', '단기'],
 };
 
 console.log(`스캔 중: ${targetUrl}`);
