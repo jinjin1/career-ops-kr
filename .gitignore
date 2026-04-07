@@ -27,3 +27,4 @@ dashboard/*.png
 autoresearch/output/
 autoresearch/results.tsv
 autoresearch/discovered-urls.txt
+system-prompt-extraction/
